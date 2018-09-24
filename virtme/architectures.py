@@ -262,7 +262,7 @@ class Arch_mips64(Arch):
     def __init__(self, name):
         Arch.__init__(self, name)
 
-        self.defconfig_target = '64r6el_defconfig BOARD=eq5'
+        self.defconfig_target = '64r6el_defconfig BOARD=eyeq5'
         self.qemuname = 'mips64el'
         self.linuxname = 'mips'
         self.gccname = 'mips64'
@@ -270,6 +270,8 @@ class Arch_mips64(Arch):
     def qemuargs(self, is_native):
          ret = Arch.qemuargs(is_native)
          ret.extend(['-machine', 'eq5'])
+         ret.extend(['-append', '"console=ttyST0 loglevel=8 earlycon=stn8500,mmio32,0x800000 cca=5 root=/dev/mmcblk0 rootwait"'])
+         ret.extend(['-device', 'eyeq_pci,bus=pci.0'])
          return ret
 
     def kimg_path(self):

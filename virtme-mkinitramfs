@@ -7,9 +7,9 @@
 # 8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643
 
 import argparse
-import modfinder
-import virtmods
-import mkinitramfs
+from virtme import modfinder
+from virtme import virtmods
+from virtme import mkinitramfs
 
 _ARGPARSER = argparse.ArgumentParser(
     description='Generate initramfs image for virtme',
@@ -27,6 +27,7 @@ def main():
         config.modfiles = modfinder.find_modules_from_install(
             virtmods.MODALIASES, kver=args.mod_kversion)
 
+    config.busybox = mkinitramfs.find_busybox('/', False)
     mkinitramfs.mkinitramfs(sys.stdout.buffer, config)
 
     return 0
