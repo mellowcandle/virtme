@@ -258,6 +258,23 @@ class Arch_s390x(Arch):
     def config_base():
         return ['CONFIG_MARCH_Z900=y']
 
+class Arch_mips64(Arch):
+    def __init__(self, name):
+        Arch.__init__(self, name)
+
+        self.defconfig_target = '64r6el_defconfig BOARD=eq5'
+        self.qemuname = 'mips64el'
+        self.linuxname = 'mips'
+        self.gccname = 'mips64'
+
+    def qemuargs(self, is_native):
+         ret = Arch.qemuargs(is_native)
+         ret.extend(['-machine', 'eq5'])
+         return ret
+
+    def kimg_path(self):
+        return 'arch/mips/boot/vmlinux.gz.itb'
+
 ARCHES = {
     'x86_64': Arch_x86,
     'i386': Arch_x86,
@@ -266,6 +283,7 @@ ARCHES = {
     'ppc64': Arch_ppc64,
     'sparc64': Arch_sparc64,
     's390x': Arch_s390x,
+    'mips64': Arch_mips64,
 }
 
 def get(arch):

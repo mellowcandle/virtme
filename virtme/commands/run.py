@@ -443,8 +443,8 @@ def main():
     if args.qemu_opts is not None:
         qemuargs.extend(args.qemu_opts)
 
-    if args.show_command:
-        print(' '.join(shlex.quote(a) for a in qemuargs))
+    # if args.show_command:
+    print(' '.join(shlex.quote(a) for a in qemuargs))
 
     # Go!
     if not args.dry_run:
